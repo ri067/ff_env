@@ -1,0 +1,27 @@
+{
+  "model": "gemma-3-27b-it",
+  "results": [
+    {
+      "task": "easy",
+      "seed": 42,
+      "steps_used": 1,
+      "final_score": 0.0,
+      "trajectory": []
+    },
+    {
+      "task": "medium",
+      "seed": 123,
+      "steps_used": 1,
+      "final_score": 0.0,
+      "trajectory": []
+    },
+    {
+      "task": "hard",
+      "seed": 999,
+      "steps_used": 1,
+      "final_score": 0.0,
+      "trajectory": []
+    }
+  ],
+  "average": 0.0
+}

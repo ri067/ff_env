@@ -7,10 +7,10 @@
 """Ff Env Environment."""
 
 from .client import FfEnv
-from .models import FfAction, FfObservation
+from .models import FraudAction, FraudObservation
 
 __all__ = [
-    "FfAction",
-    "FfObservation",
+    "FraudAction",
+    "FraudObservation",
     "FfEnv",
 ]

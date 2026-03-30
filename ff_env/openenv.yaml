@@ -1,3 +1,4 @@
+cat > ~/ff_env/ff_env/openenv.yaml << 'EOF'
 spec_version: 1
 name: ff_env
 type: space
@@ -5,3 +6,84 @@ runtime: fastapi
 app: server.app:app
 port: 8000
 
+description: >
+  Financial Fraud Detection Environment.
+  An AI agent plays the role of a forensic accountant auditing synthetic
+  company financial statements to detect accounting fraud patterns.
+
+tags:
+  - openenv
+  - finance
+  - fraud-detection
+  - forensic-accounting
+
+tasks:
+  - name: easy
+    description: >
+      One obvious fraud injected. Revenue inflates 40-80% in Q3-Q4
+      while operating cash flow stays flat. Agent must identify
+      revenue_inflation and flag the correct line item.
+    difficulty: easy
+    max_steps: 15
+    reward_range: [0.0, 1.0]
+
+  - name: medium
+    description: >
+      Two frauds injected across different statements. Revenue inflation
+      plus expense hiding. Agent must cross-reference income statement
+      metrics to find both.
+    difficulty: medium
+    max_steps: 20
+    reward_range: [0.0, 1.0]
+
+  - name: hard
+    description: >
+      Three layered frauds — earnings smoothing, channel stuffing, and
+      asset overstatement. Red herrings present. Agent must distinguish
+      real fraud signals from normal business variation using benchmarks
+      and cross-statement reasoning.
+    difficulty: hard
+    max_steps: 25
+    reward_range: [0.0, 1.0]
+
+observation_space:
+  type: structured
+  fields:
+    - name: revenue
+      type: list[float]
+      description: Quarterly revenue in $K
+    - name: net_income
+      type: list[float]
+      description: Quarterly net income in $K
+    - name: operating_cashflow
+      type: list[float]
+      description: Quarterly operating cash flow in $K
+    - name: receivables
+      type: list[float]
+      description: Quarterly accounts receivable in $K
+    - name: total_assets
+      type: list[float]
+      description: Quarterly total assets in $K
+    - name: flags_raised
+      type: list[dict]
+      description: Fraud flags the agent has raised so far
+    - name: step_budget
+      type: int
+      description: Steps remaining in the episode
+
+action_space:
+  type: structured
+  actions:
+    - name: inspect
+      description: Inspect a specific metric across all quarters
+    - name: compare
+      description: Cross-reference two metrics to spot divergence
+    - name: flag
+      description: Raise a fraud alert on a specific pattern
+    - name: check_benchmark
+      description: Compare a metric against industry average
+    - name: request_detail
+      description: Get a full breakdown of one quarter
+    - name: submit_report
+      description: Finalise findings and end the episode
+EOF

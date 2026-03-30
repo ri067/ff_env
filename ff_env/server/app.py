@@ -36,10 +36,10 @@ except Exception as e:  # pragma: no cover
     ) from e
 
 try:
-    from ..models import FfAction, FfObservation
+    from ..models import FraudAction, FraudObservation
     from .ff_env_environment import FfEnvironment
 except ModuleNotFoundError:
-    from models import FfAction, FfObservation
+    from models import FraudAction, FraudObservation
     from server.ff_env_environment import FfEnvironment
 
 
