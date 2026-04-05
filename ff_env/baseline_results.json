@@ -1,0 +1,36 @@
+{
+  "model": "gpt-4o-mini",
+  "results": [
+    {
+      "task": "easy",
+      "seed": 1020790,
+      "steps_used": 1,
+      "final_score": 0.0,
+      "success": false,
+      "rewards": [
+        0.0
+      ]
+    },
+    {
+      "task": "medium",
+      "seed": 1687950,
+      "steps_used": 1,
+      "final_score": 0.0,
+      "success": false,
+      "rewards": [
+        0.0
+      ]
+    },
+    {
+      "task": "hard",
+      "seed": 1245620,
+      "steps_used": 1,
+      "final_score": 0.0,
+      "success": false,
+      "rewards": [
+        0.0
+      ]
+    }
+  ],
+  "average": 0.0
+}
