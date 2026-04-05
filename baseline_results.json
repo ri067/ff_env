@@ -1,27 +1,178 @@
 {
-  "model": "gemma-3-27b-it",
+  "model": "llama-3.3-70b-versatile",
   "results": [
-    {
-      "task": "easy",
-      "seed": 42,
-      "steps_used": 1,
-      "final_score": 0.0,
-      "trajectory": []
-    },
-    {
-      "task": "medium",
-      "seed": 123,
-      "steps_used": 1,
-      "final_score": 0.0,
-      "trajectory": []
-    },
     {
       "task": "hard",
       "seed": 999,
-      "steps_used": 1,
-      "final_score": 0.0,
-      "trajectory": []
+      "steps_used": 14,
+      "final_score": 0.573,
+      "trajectory": [
+        {
+          "step": 1,
+          "action_type": "inspect",
+          "parameters": {
+            "statement": "income_statement",
+            "metric": "revenue"
+          },
+          "reward": 0.05,
+          "done": false
+        },
+        {
+          "step": 2,
+          "action_type": "inspect",
+          "parameters": {
+            "statement": "income_statement",
+            "metric": "net_income"
+          },
+          "reward": 0.05,
+          "done": false
+        },
+        {
+          "step": 3,
+          "action_type": "compare",
+          "parameters": {
+            "metric_a": "revenue",
+            "metric_b": "operating_cashflow"
+          },
+          "reward": 0.1,
+          "done": false
+        },
+        {
+          "step": 4,
+          "action_type": "check_benchmark",
+          "parameters": {
+            "metric": "receivables_ratio"
+          },
+          "reward": 0.05,
+          "done": false
+        },
+        {
+          "step": 5,
+          "action_type": "request_detail",
+          "parameters": {
+            "quarter": 1
+          },
+          "reward": 0.03,
+          "done": false
+        },
+        {
+          "step": 6,
+          "action_type": "flag",
+          "parameters": {
+            "fraud_type": "revenue_inflation",
+            "line_item": "revenue",
+            "statement": "income_statement",
+            "quarters": [
+              1,
+              2,
+              3
+            ]
+          },
+          "reward": -0.1,
+          "done": false
+        },
+        {
+          "step": 7,
+          "action_type": "inspect",
+          "parameters": {
+            "statement": "balance_sheet",
+            "metric": "equity"
+          },
+          "reward": 0.05,
+          "done": false
+        },
+        {
+          "step": 8,
+          "action_type": "flag",
+          "parameters": {
+            "fraud_type": "equity_overstatement",
+            "line_item": "equity",
+            "statement": "balance_sheet",
+            "quarters": [
+              2,
+              3
+            ]
+          },
+          "reward": -0.05,
+          "done": false
+        },
+        {
+          "step": 9,
+          "action_type": "flag",
+          "parameters": {
+            "fraud_type": "asset_overstatement",
+            "line_item": "equity",
+            "statement": "balance_sheet",
+            "quarters": [
+              2,
+              3
+            ]
+          },
+          "reward": 0.25,
+          "done": false
+        },
+        {
+          "step": 10,
+          "action_type": "inspect",
+          "parameters": {
+            "statement": "income_statement",
+            "metric": "cost_of_goods_sold"
+          },
+          "reward": 0.05,
+          "done": false
+        },
+        {
+          "step": 11,
+          "action_type": "flag",
+          "parameters": {
+            "fraud_type": "expense_hiding",
+            "line_item": "cost_of_goods_sold",
+            "statement": "income_statement",
+            "quarters": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "reward": -0.1,
+          "done": false
+        },
+        {
+          "step": 12,
+          "action_type": "check_benchmark",
+          "parameters": {
+            "metric": "gross_margin"
+          },
+          "reward": 0.05,
+          "done": false
+        },
+        {
+          "step": 13,
+          "action_type": "flag",
+          "parameters": {
+            "fraud_type": "earnings_smoothing",
+            "line_item": "gross_profit",
+            "statement": "income_statement",
+            "quarters": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "reward": 0.25,
+          "done": false
+        },
+        {
+          "step": 14,
+          "action_type": "submit_report",
+          "parameters": {},
+          "reward": 0.5728,
+          "done": true
+        }
+      ]
     }
   ],
-  "average": 0.0
+  "average": 0.573
 }
