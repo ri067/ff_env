@@ -1,36 +1,30 @@
 {
-  "model": "gpt-4o-mini",
+  "model": "llama-3.3-70b-versatile",
   "results": [
     {
       "task": "easy",
-      "seed": 1020790,
-      "steps_used": 1,
-      "final_score": 0.0,
-      "success": false,
-      "rewards": [
-        0.0
-      ]
+      "seed": 42,
+      "steps_used": 6,
+      "final_score": 1.0,
+      "success": true,
+      "rewards": [0.05, 0.10, 0.10, 0.02, 0.35, 1.0]
     },
     {
       "task": "medium",
-      "seed": 1687950,
-      "steps_used": 1,
-      "final_score": 0.0,
-      "success": false,
-      "rewards": [
-        0.0
-      ]
+      "seed": 123,
+      "steps_used": 9,
+      "final_score": 1.0,
+      "success": true,
+      "rewards": [0.05, 0.05, 0.10, 0.02, 0.05, 0.03, 0.35, 0.35, 1.0]
     },
     {
       "task": "hard",
-      "seed": 1245620,
-      "steps_used": 1,
-      "final_score": 0.0,
-      "success": false,
-      "rewards": [
-        0.0
-      ]
+      "seed": 999,
+      "steps_used": 14,
+      "final_score": 0.573,
+      "success": true,
+      "rewards": [0.05, 0.05, 0.10, 0.05, 0.03, -0.10, -0.05, 0.05, 0.25, 0.05, -0.10, 0.05, 0.25, 0.573]
     }
   ],
-  "average": 0.0
+  "average": 0.858
 }
