@@ -8,13 +8,12 @@ financial statements. It must identify fraud patterns by inspecting,
 comparing, and flagging suspicious numbers across 3 financial statements.
 
 Episode flow:
-    reset() → agent receives financial statements (with hidden fraud)
-    step(action) → agent inspects/flags → receives reward + feedback
-    step(submit_report) → episode ends → grader scores final flags
+    reset() -> agent receives financial statements (with hidden fraud)
+    step(action) -> agent inspects/flags -> receives reward + feedback
+    step(submit_report) -> episode ends -> grader scores final flags
 """
 
 from uuid import uuid4
-
 from openenv.core.env_server.interfaces import Environment
 from openenv.core.env_server.types import State
 
@@ -27,14 +26,22 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ff_env.data_generator import generate_clean_statements, INDUSTRY_BENCHMARKS
-from ff_env.fraud_injector import inject_easy, inject_medium, inject_hard
-from ff_env.grader import grade_episode
+try:
+    from data_generator import generate_clean_statements, INDUSTRY_BENCHMARKS
+except ImportError:
+    from ff_env.data_generator import generate_clean_statements, INDUSTRY_BENCHMARKS
+try:
+    from fraud_injector import inject_easy, inject_medium, inject_hard
+except ImportError:
+    from ff_env.fraud_injector import inject_easy, inject_medium, inject_hard
+try:
+    from grader import grade_episode
+except ImportError:
+    from ff_env.grader import grade_episode
 
 
-# ─────────────────────────────────────────────────────────────
-# Task Definitions
-# ─────────────────────────────────────────────────────────────
+
+#Task Definitions
 
 TASKS = {
     "easy": {
@@ -91,10 +98,7 @@ VALID_FRAUD_TYPES = {
 }
 
 
-# ─────────────────────────────────────────────────────────────
-# Environment
-# ─────────────────────────────────────────────────────────────
-
+#Environment
 class FfEnvironment(Environment):
     """
     Financial Fraud Detection Environment.
@@ -114,10 +118,7 @@ class FfEnvironment(Environment):
         self._episode_seed = 0
         self._done = False
 
-    # ─────────────────────────────────────────────────────────
-    # reset()
-    # ─────────────────────────────────────────────────────────
-
+    #reset()
     def reset(self, task_name: str = "easy", seed: int = None) -> FraudObservation:
         """
         Start a fresh episode.
@@ -131,18 +132,18 @@ class FfEnvironment(Environment):
         """
         import random
 
-        # Pick task
+        #Pick task
         task_name = task_name if task_name in TASKS else "easy"
         self._task = TASKS[task_name]
 
-        # Generate seed if not provided
+        #Generate seed
         self._episode_seed = seed if seed is not None else random.randint(0, 99999)
 
-        # Generate clean statements then inject fraud
+        #Generate clean statements then inject fraud
         statements = generate_clean_statements(seed=self._episode_seed)
         self._statements = self._task["injector"](statements, seed=self._episode_seed + 1)
 
-        # Reset episode state
+        #Reset episode state
         self._flags_raised = []
         self._steps_remaining = self._task["step_budget"]
         self._done = False
@@ -156,10 +157,7 @@ class FfEnvironment(Environment):
             )
         )
 
-    # ─────────────────────────────────────────────────────────
-    # step()
-    # ─────────────────────────────────────────────────────────
-
+    #step()
     def step(self, action: FraudAction) -> FraudObservation:
         """
         Execute one agent action.
@@ -176,7 +174,7 @@ class FfEnvironment(Environment):
         self._state.step_count += 1
         self._steps_remaining -= 1
 
-        # Route to the correct action handler
+        #Route to the correct action handler
         action_type = action.action_type.lower().strip()
         params      = action.parameters or {}
 
@@ -210,10 +208,7 @@ class FfEnvironment(Environment):
             done=self._done,
         )
 
-    # ─────────────────────────────────────────────────────────
-    # Action Handlers
-    # ─────────────────────────────────────────────────────────
-
+    #Action Handlers
     def _handle_inspect(self, params: dict) -> tuple[str, float]:
         """
         Agent inspects a specific metric in a statement.
@@ -460,18 +455,15 @@ class FfEnvironment(Environment):
 
         return result, score
 
-    # ─────────────────────────────────────────────────────────
-    # state property
-    # ─────────────────────────────────────────────────────────
+    
+    
+    #state property
 
     @property
     def state(self) -> State:
         return self._state
 
-    # ─────────────────────────────────────────────────────────
-    # Helpers
-    # ─────────────────────────────────────────────────────────
-
+    #Helpers
     def _build_observation(
         self,
         last_action_result: str = "",

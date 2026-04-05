@@ -25,11 +25,19 @@ import time
 
 from openai import OpenAI
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "ff_env"))
+# Works both locally and on HuggingFace (flat structure)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from ff_env.server.ff_env_environment import FfEnvironment
-from ff_env.models import FraudAction
-#Config
+try:
+    from server.ff_env_environment import FfEnvironment
+    from models import FraudAction
+except ImportError:
+    from ff_env.server.ff_env_environment import FfEnvironment
+    from ff_env.models import FraudAction
+
+# ─────────────────────────────────────────────────────────────
+# Config
+# ─────────────────────────────────────────────────────────────
 
 API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.openai.com/v1")
 MODEL_NAME   = os.environ.get("MODEL_NAME",   "gpt-4o-mini")
@@ -80,7 +88,9 @@ STRATEGY:
 Respond with ONLY the JSON. Nothing else."""
 
 
-#Helpers
+# ─────────────────────────────────────────────────────────────
+# Helpers
+# ─────────────────────────────────────────────────────────────
 
 def build_user_message(obs) -> str:
     return f"""COMPANY: {obs.company_name} | INDUSTRY: {obs.industry}
@@ -157,7 +167,9 @@ def call_llm(client: OpenAI, history: list) -> str | None:
     return None
 
 
-#Agent Loop
+# ─────────────────────────────────────────────────────────────
+# Agent Loop
+# ─────────────────────────────────────────────────────────────
 
 def run_agent(client: OpenAI, env: FfEnvironment, task_name: str, seed: int) -> dict:
     print(f"\n{'='*55}")
@@ -225,7 +237,10 @@ def run_agent(client: OpenAI, env: FfEnvironment, task_name: str, seed: int) -> 
     }
 
 
-#Main
+# ─────────────────────────────────────────────────────────────
+# Main
+# ─────────────────────────────────────────────────────────────
+
 def main():
     print("Financial Fraud Detection -- Baseline Inference")
     print(f"Model    : {MODEL_NAME}")

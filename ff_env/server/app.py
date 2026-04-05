@@ -2,7 +2,6 @@
 import sys
 import os
 
-# Make sure imports work both locally and in Docker
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:

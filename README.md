@@ -1,6 +1,6 @@
 # Financial Fraud Detection Environment
 
-An [OpenEnv](https://huggingface.co/openenv)-compatible reinforcement learning environment where an AI agent plays the role of a **forensic accountant** auditing synthetic company financial statements to detect accounting fraud.
+An [OpenEnv](https://huggingface.co/openenv)-compatible reinforcement learning environment where an AI agent plays the role of a forensic **accountant** auditing synthetic company financial statements to detect accounting fraud.
 
 ---
 
@@ -26,12 +26,13 @@ This simulates a real task that financial auditors perform daily: detecting mani
 
 ## Tasks
 
-| Task | Difficulty | Frauds | Step Budget | Expected Score (Frontier LLM) |
+| Task | Difficulty | Frauds | Step Budget | Expected Score* |
 |---|---|---|---|---|
 | `easy` | Easy | 1 — revenue inflation | 15 | ~1.0 |
 | `medium` | Medium | 2 — revenue inflation + expense hiding | 20 | ~0.85 |
 | `hard` | Hard | 3 — earnings smoothing + channel stuffing + asset overstatement | 25 | ~0.55 |
 
+###### *Expected Score obtained via testing on llama-3.3-70b-versatile.
 ---
 
 ## Action Space
@@ -87,14 +88,14 @@ Final score breakdown (on submit):
 ## Setup
 
 ### Requirements
-- Python 3.10–3.12
+- Python 3.10-3.12
 - Docker
 - `uv` package manager
 
 ### Install
 
 ```bash
-git clone <your-repo-url>
+git clone https://huggingface.co/spaces/OrangeUnknown/ff-env
 cd ff_env
 uv sync
 ```
@@ -163,7 +164,7 @@ ff_env/
 
 ---
 
-## Environment Design Notes
+## Design Notes
 
 **Why synthetic data?**
 All financial statements are procedurally generated — no real company data is used. Fraud is injected deterministically using a seed, so episodes are fully reproducible.
