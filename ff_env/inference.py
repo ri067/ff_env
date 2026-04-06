@@ -43,15 +43,15 @@ except ImportError:
 
 #Config
 
-API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.openai.com/v1")
-MODEL_NAME   = os.environ.get("MODEL_NAME",   "gpt-4o-mini")
+API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.groq.com/openai/v1")
+MODEL_NAME   = os.environ.get("MODEL_NAME",   "llama-3.3-70b-versatile")
 HF_TOKEN     = os.environ.get("HF_TOKEN")
 BENCHMARK = "financial_fraud_detection"
 
 TASKS = [
-{"name": "easy", "seed": 1020790}, 
-{"name": "medium", "seed": 1687950}, 
-{"name": "hard", "seed": 1245620}
+{"name": "easy", "seed": 42}, 
+{"name": "medium", "seed": 123}, 
+{"name": "hard", "seed": 999}
 ]
 
 SUCCESS_SCORE_THRESHOLD = 0.7
