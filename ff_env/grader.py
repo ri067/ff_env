@@ -37,7 +37,7 @@ def grade_episode(
     num_injected = len(injected_frauds)
     if num_injected == 0:
         # Edge case: no frauds injected (shouldn't happen in normal tasks)
-        return 1.0, {"note": "No frauds injected — trivially clean"}
+        return 0.999, {"note": "No frauds injected — trivially clean"}
 
     injected_types = {f["type"] for f in injected_frauds}
 
@@ -94,7 +94,7 @@ def grade_episode(
         efficiency_score * 0.20
     )
 
-    final_score = round(min(1.0, max(0.0, raw_score)), 4)
+    final_score = round(min(0.999, max(0.001, raw_score)), 4)
 
     breakdown = {
         "frauds_injected":   num_injected,
