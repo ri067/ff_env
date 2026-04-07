@@ -452,7 +452,7 @@ class FfEnvironment(Environment):
             f"  Final score  : {score:.3f} / 1.000\n"
             f"  Breakdown    : {breakdown}"
         )
-
+        score = min(0.999, max(0.001, score))
         return result, score
 
     
