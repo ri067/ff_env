@@ -264,7 +264,7 @@ def run_task(client: OpenAI, env: FfEnvironment, task_name: str, seed: int) -> d
                     final_score = reward
  
             time.sleep(1.5)  # avoid rate limits
- 
+        final_score = min(0.999, max(0.001, final_score))
         success = final_score >= SUCCESS_SCORE_THRESHOLD
  
     except Exception as e:
